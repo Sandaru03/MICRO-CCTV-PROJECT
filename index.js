@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import userRouter from "./routers/userRouter.js";
 import employeeRouter from "./routers/employeeRouter.js";
 import repairRouter from "./routers/repairRouter.js";
-import accessoryRouter from "./routers/accessoryRouter.js";
 import packageRouter from "./routers/packageRouter.js";
 import supplierRouter from "./routers/supplierRouter.js";
 import productRouter from "./routers/productRouter.js";
@@ -27,7 +26,6 @@ mongoose.connect(connectionString)
 app.use("/users",userRouter)
 app.use("/employees",employeeRouter)
 app.use("/repairs",repairRouter)
-app.use("/accessories",accessoryRouter)
 app.use("/packages",packageRouter)
 app.use("/suppliers",supplierRouter)
 app.use("/products",productRouter)

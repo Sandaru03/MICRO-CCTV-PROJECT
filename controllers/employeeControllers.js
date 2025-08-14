@@ -30,18 +30,31 @@ export function loginEmployee(req, res) {
     Employee.findOne({ email: email })
         .then((employee) => {
             if (!employee) {
-                return res.status(404).json({ message: "Employee Not Found" });
+                return res.status(404).json(
+                    {
+                         message: "Employee Not Found" 
+                    });
             }
 
             const isPasswordCorrect = bcrypt.compareSync(password, employee.password);
             if (isPasswordCorrect) {
-                res.json({ message: "Login Successful" });
+                res.json(
+                    { 
+                        message: "Login Successful" 
+                    });
+
             } else {
-                res.status(403).json({ message: "Incorrect Password" });
+                res.status(403).json(
+                    {
+                         message: "Incorrect Password" 
+                    });
             }
         })
         .catch(() => {
-            res.status(500).json({ message: "Login Failed" });
+            res.status(500).json(
+                {
+                     message: "Login Failed" 
+                });
         });
 }
 

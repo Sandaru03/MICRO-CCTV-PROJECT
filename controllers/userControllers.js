@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // Create User Signup
 export function createUser(req, res) {
@@ -116,28 +117,58 @@ export function deleteUserByEmail(req, res) {
         });
 }
 
-// Login User
+// Login User (Only Customers)
 export function loginUser(req, res) {
     const email = req.body.email;
     const password = req.body.password;
 
-    User.findOne({ email: email })
+    User.findOne({ email: email, role: "customer" }) // role check
         .then((user) => {
-            if (user == null) {
-                res.status(404).json({
-                    message: "User Not Found"
+            if (!user) {
+                return res.status(404).json({
+                    message: "Customer Not Found"
+                });
+            }
+            const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+            if (isPasswordCorrect) {
+                res.json({
+                    message: "Customer Login Successful"
                 });
             } else {
-                const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-                if (isPasswordCorrect) {
-                    res.json({
-                        message: "Login Successful"
-                    });
-                } else {
-                    res.status(403).json({
-                        message: "Incorrect Password"
-                    });
-                }
+                res.status(403).json({
+                    message: "Incorrect Password"
+                });
             }
+        })
+        .catch(() => {
+            res.status(500).json({ message: "Login Failed" });
+        });
+}
+
+// Login Admin 
+export function loginAdmin(req, res) {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({ email: email, role: "admin" }) // role check
+        .then((admin) => {
+            if (!admin) {
+                return res.status(404).json({
+                    message: "Admin Not Found"
+                });
+            }
+            const isPasswordCorrect = bcrypt.compareSync(password, admin.password);
+            if (isPasswordCorrect) {
+                res.json({
+                    message: "Admin Login Successful"
+                });
+            } else {
+                res.status(403).json({
+                    message: "Incorrect Password"
+                });
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ message: "Login Failed" });
         });
 }
