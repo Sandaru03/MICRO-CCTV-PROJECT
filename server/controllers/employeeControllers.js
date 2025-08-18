@@ -22,44 +22,60 @@ export function createEmployee(req, res) {
         });
 }
 
-// Employee Login
-export function loginEmployee(req, res) {
-    const email = req.body.email;
-    const password = req.body.password;
+// // Employee Login
+// export function loginEmployee(req, res) {
+//     const email = req.body.email;
+//     const password = req.body.password;
 
-    Employee.findOne({ email: email })
-        .then((employee) => {
-            if (!employee) {
-                return res.status(404).json(
-                    {
-                         message: "Employee Not Found" 
-                    });
-            }
+//     Employee.findOne({ email: email })
+//         .then((employee) => {
+//             if (!employee) {
+//                 return res.status(404).json(
+//                     {
+//                          message: "Employee Not Found" 
+//                     });
+//             }
 
-            const isPasswordCorrect = bcrypt.compareSync(password, employee.password);
-            if (isPasswordCorrect) {
-                res.json(
-                    { 
-                        message: "Login Successful" 
-                    });
+//             const isPasswordCorrect = bcrypt.compareSync(password, employee.password);
+//             if (isPasswordCorrect) {
+//                 res.json(
+//                     { 
+//                         message: "Login Successful" 
+//                     });
 
-            } else {
-                res.status(403).json(
-                    {
-                         message: "Incorrect Password" 
-                    });
-            }
-        })
-        .catch(() => {
-            res.status(500).json(
-                {
-                     message: "Login Failed" 
-                });
-        });
-}
+//             } else {
+//                 res.status(403).json(
+//                     {
+//                          message: "Incorrect Password" 
+//                     });
+//             }
+//         })
+//         .catch(() => {
+//             res.status(500).json(
+//                 {
+//                      message: "Login Failed" 
+//                 });
+//         });
+// }
 
-// Update Employee by Email (Allow password change)
+// Update Employee by Email (Allow password change) (only Admin)
 export function updateEmployeeByEmail(req, res) {
+
+    if(req.user == null){
+        res.status(403).json({
+            message : "Please Login to update a employee"
+        })
+        return
+    }
+    if(req.user.role!="Admin"){
+        res.status(403).json({
+            message : "Please login an Admin to update employee"
+        })
+        return
+    }
+
+
+
     const email = req.params.email;
     const updateData = { ...req.body };
 
@@ -82,7 +98,7 @@ export function updateEmployeeByEmail(req, res) {
         });
 }
 
-// Delete Employee by Email
+// Delete Employee by Email (only Admin)
 export function deleteEmployeeByEmail(req, res) {
     const email = req.params.email;
 
@@ -101,7 +117,7 @@ export function deleteEmployeeByEmail(req, res) {
         });
 }
 
-// Get All Employees
+// Get All Employees (only Admin)
 export function getEmployee(req, res) {
     Employee.find()
         .then((employees) => {
