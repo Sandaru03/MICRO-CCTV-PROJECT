@@ -15,7 +15,14 @@ export default function LoginPage() {
 
                 <div className="w-[350px] flex flex-col  items-start gap-2">
                     <span className="text-lg">Password</span>
-                    <input type="text" className="w-[350px] h-[40px] border border-white rounded-[5px]"/>
+                    <input onChange={(e)=>{
+                        console.log(e)
+                        console.log("Password is changed")
+
+                    }
+                  }
+                     type="text" className="w-[350px] h-[40px] border border-white rounded-[5px]"/>
+
                 </div>
 
                 <button className="w-[350px] h-[40px] bg-red-600 rounded-xl text-white text-lg mt-5
