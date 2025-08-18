@@ -1,5 +1,9 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 
 // Create User Signup
@@ -117,58 +121,105 @@ export function deleteUserByEmail(req, res) {
         });
 }
 
-// Login User (Only Customers)
-export function loginUser(req, res) {
-    const email = req.body.email;
-    const password = req.body.password;
+// // Login User (Only Customers)
+// export function loginUser(req, res) {
+//     const email = req.body.email;
+//     const password = req.body.password;
 
-    User.findOne({ email: email, role: "customer" }) // role check
-        .then((user) => {
-            if (!user) {
-                return res.status(404).json({
-                    message: "Incorrect Login"
-                });
-            }
-            const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-            if (isPasswordCorrect) {
-                res.json({
-                    message: "Customer Login Successful"
-                });
-            } else {
-                res.status(403).json({
-                    message: "Incorrect Password"
-                });
-            }
-        })
-        .catch(() => {
-            res.status(500).json({ message: "Login Failed" });
-        });
-}
+//     User.findOne({ email: email, role: "customer" }) // role check
+//         .then((user) => {
+//             if (!user) {
+//                 return res.status(404).json({
+//                     message: "Incorrect Login"
+//                 });
+//             }
+//             const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+//             if (isPasswordCorrect) {
+//                 res.json({
+//                     message: "Customer Login Successful"
+//                 });
+//             } else {
+//                 res.status(403).json({
+//                     message: "Incorrect Password"
+//                 });
+//             }
+//         })
+//         .catch(() => {
+//             res.status(500).json({ message: "Login Failed" });
+//         });
+// }
 
-// Login Admin 
-export function loginAdmin(req, res) {
-    const email = req.body.email;
-    const password = req.body.password;
+// // Login Admin 
+// export function loginAdmin(req, res) {
+//     const email = req.body.email;
+//     const password = req.body.password;
 
-    User.findOne({ email: email, role: "admin" }) // role check
-        .then((admin) => {
-            if (!admin) {
-                return res.status(404).json({
-                    message: "Admin Not Found"
-                });
+//     User.findOne({ email: email, role: "admin" }) // role check
+//         .then((admin) => {
+//             if (!admin) {
+//                 return res.status(404).json({
+//                     message: "Admin Not Found"
+//                 });
+//             }
+//             const isPasswordCorrect = bcrypt.compareSync(password, admin.password);
+//             if (isPasswordCorrect) {
+//                 res.json({
+//                     message: "Admin Login Successful"
+//                 });
+//             } else {
+//                 res.status(403).json({
+//                     message: "Incorrect Password"
+//                 });
+//             }
+//         })
+//         .catch(() => {
+//             res.status(500).json({ message: "Login Failed" });
+//         });
+// }
+
+// User login (Customer and Admin)
+
+export function LoginUser(req,res){
+    
+    const email = req.body.email
+    const password = req.body.password
+
+    user.findOne(
+        {
+            email : email
+        }.then(
+            (user)=>{
+                if(user==null){
+                    res.status(404).json({
+                        message : "User Not Found"
+                    })
+                }else{
+                    const isPasswordCorrect = bcrypt.compareSync(password,user.password)
+
+                    if(isPasswordCorrect){
+
+                        const token = jwt.sign({
+                            email : user.email,
+                            firstName : user.firstName,
+                            lastName : user.lastName,
+                            role : user.role,
+                            isBlock : user.isBlock,
+                            isEmailVerified : user.isEmailVerified
+                        },
+                        process.env.JWT_SECRET
+                    )
+
+                        res.json({
+                            token : token,
+                            message : "Login Successfull"
+                        })
+                    }else{
+                        res.status(403).json({
+                            message : "Incorrect Password"
+                        })
+                    }
+                }
             }
-            const isPasswordCorrect = bcrypt.compareSync(password, admin.password);
-            if (isPasswordCorrect) {
-                res.json({
-                    message: "Admin Login Successful"
-                });
-            } else {
-                res.status(403).json({
-                    message: "Incorrect Password"
-                });
-            }
-        })
-        .catch(() => {
-            res.status(500).json({ message: "Login Failed" });
-        });
+        )
+    )
 }
