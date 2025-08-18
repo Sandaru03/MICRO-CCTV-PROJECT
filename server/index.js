@@ -1,8 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import userRouter from "./routers/userRouter.js";
 import employeeRouter from "./routers/employeeRouter.js";
 import repairRouter from "./routers/repairRouter.js";
@@ -10,9 +10,10 @@ import packageRouter from "./routers/packageRouter.js";
 import supplierRouter from "./routers/supplierRouter.js";
 import productRouter from "./routers/productRouter.js";
 
+dotenv.config()
+
 const app = express();
 
-app.use(cors())
 app.use(bodyParser.json())
 
 app.use(
@@ -20,7 +21,7 @@ app.use(
         const value = req.header("Authorization")
         if(value != null){
            const token = value.replace("Bearer ","") 
-           jwt.verify(token,"micro-123",
+           jwt.verify(token,process.env.JWT_SECRET,
             (err,decoded)=>{
                 if(decoded == null){
                     res.status(403).json({
@@ -40,7 +41,7 @@ app.use(
     }
 )
 
-const connectionString ="mongodb+srv://dilshansandaru24:JSkg9tWOcEBK6AVK@cluster0.0ij9chu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const connectionString = process.env.MONGO_URL
 
 mongoose.connect(connectionString)
     .then(() => {
