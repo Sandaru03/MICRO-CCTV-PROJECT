@@ -179,47 +179,46 @@ export function deleteUserByEmail(req, res) {
 
 // User login (Customer and Admin)
 
-export function LoginUser(req,res){
-    
-    const email = req.body.email
-    const password = req.body.password
+export function LoginUser(req, res) {
+    const email = req.body.email;
+    const password = req.body.password;
 
-    user.findOne(
-        {
-            email : email
-        }.then(
-            (user)=>{
-                if(user==null){
-                    res.status(404).json({
-                        message : "User Not Found"
-                    })
-                }else{
-                    const isPasswordCorrect = bcrypt.compareSync(password,user.password)
-
-                    if(isPasswordCorrect){
-
-                        const token = jwt.sign({
-                            email : user.email,
-                            firstName : user.firstName,
-                            lastName : user.lastName,
-                            role : user.role,
-                            isBlock : user.isBlock,
-                            isEmailVerified : user.isEmailVerified
-                        },
-                        process.env.JWT_SECRET
-                    )
-
-                        res.json({
-                            token : token,
-                            message : "Login Successfull"
-                        })
-                    }else{
-                        res.status(403).json({
-                            message : "Incorrect Password"
-                        })
-                    }
-                }
+    User.findOne({ email: email })  
+        .then((user) => {            
+            if (!user) {
+                return res.status(404).json({
+                    message: "User Not Found"
+                });
             }
-        )
-    )
+
+            const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+
+            if (isPasswordCorrect) {
+                const token = jwt.sign({
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    role: user.role,
+                    isBlock: user.isBlock,
+                    isEmailVerified: user.isEmailVerified
+                }, process.env.JWT_SECRET);
+
+                res.json({
+                    token: token,
+                    message: "Login Successful",
+                    role : user.role,
+                });
+            } else {
+                res.status(403).json({
+                    message: "Incorrect Password"
+                });
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({
+                message: "Login Failed",
+                error: error.message
+            });
+        });
 }

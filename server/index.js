@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import cors from "cors";
 import userRouter from "./routers/userRouter.js";
 import employeeRouter from "./routers/employeeRouter.js";
 import repairRouter from "./routers/repairRouter.js";
@@ -13,6 +14,8 @@ import productRouter from "./routers/productRouter.js";
 dotenv.config()
 
 const app = express();
+
+app.use(cors())
 
 app.use(bodyParser.json())
 
