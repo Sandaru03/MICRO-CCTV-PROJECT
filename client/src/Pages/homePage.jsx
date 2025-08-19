@@ -131,7 +131,7 @@ export default function HomePage() {
             </div>
 
             <div className="order-1 lg:order-2">
-              <img src="/images/cameras-pack.png" alt="Cameras" className="mx-auto max-h-[360px] object-contain" />
+              <img src="/Ph7.png" alt="Cameras" className="mx-auto max-h-[360px] object-contain" />
             </div>
 
             <div className="space-y-10 order-3">
