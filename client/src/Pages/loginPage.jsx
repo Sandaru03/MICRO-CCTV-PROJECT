@@ -23,7 +23,7 @@ export default function LoginPage() {
 
                 toast.success("Login Successful")
 
-                if(response.data.role == "Admin"){
+                if(response.data.role == "admin"){
 
                     //go to the admin page
                     navigate("/admin")
