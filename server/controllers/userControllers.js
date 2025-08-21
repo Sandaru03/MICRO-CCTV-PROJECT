@@ -121,63 +121,7 @@ export function deleteUserByEmail(req, res) {
         });
 }
 
-// // Login User (Only Customers)
-// export function loginUser(req, res) {
-//     const email = req.body.email;
-//     const password = req.body.password;
 
-//     User.findOne({ email: email, role: "customer" }) // role check
-//         .then((user) => {
-//             if (!user) {
-//                 return res.status(404).json({
-//                     message: "Incorrect Login"
-//                 });
-//             }
-//             const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-//             if (isPasswordCorrect) {
-//                 res.json({
-//                     message: "Customer Login Successful"
-//                 });
-//             } else {
-//                 res.status(403).json({
-//                     message: "Incorrect Password"
-//                 });
-//             }
-//         })
-//         .catch(() => {
-//             res.status(500).json({ message: "Login Failed" });
-//         });
-// }
-
-// // Login Admin 
-// export function loginAdmin(req, res) {
-//     const email = req.body.email;
-//     const password = req.body.password;
-
-//     User.findOne({ email: email, role: "admin" }) // role check
-//         .then((admin) => {
-//             if (!admin) {
-//                 return res.status(404).json({
-//                     message: "Admin Not Found"
-//                 });
-//             }
-//             const isPasswordCorrect = bcrypt.compareSync(password, admin.password);
-//             if (isPasswordCorrect) {
-//                 res.json({
-//                     message: "Admin Login Successful"
-//                 });
-//             } else {
-//                 res.status(403).json({
-//                     message: "Incorrect Password"
-//                 });
-//             }
-//         })
-//         .catch(() => {
-//             res.status(500).json({ message: "Login Failed" });
-//         });
-// }
-
-// User login (Customer and Admin)
 
 export function LoginUser(req, res) {
     const email = req.body.email;
@@ -221,4 +165,18 @@ export function LoginUser(req, res) {
                 error: error.message
             });
         });
+}
+
+
+export function isAdmin(req){
+
+    if(req.user == null){
+        return false;
+    }
+    
+    if(req.user.role == "admin"){
+        return true;
+    }else{
+        return false;
+    }
 }

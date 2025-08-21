@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import uploadFile from "../../utils/mediaUpload";
 
 
 export default function AddProductPage() {
@@ -10,23 +11,34 @@ export default function AddProductPage() {
   const [altNames,setAlternativeName]=useState("");
   const [labellPrice,setLablePrice]=useState("");
   const [price,setPrice]=useState("");
-  const [images,setImages]=useState("");
+  const [images,setImages]=useState([]);
   const [description,setDescription]=useState("");
   const [stock,setStock]=useState("");
   const [isAvailable,setIsAvailable]=useState(true);
   const [category,setCategory]=useState("cctv1");
   const navigate = useNavigate();
 
-  function handleSubmit(){
+  async function handleSubmit(){
+
+    const promisesArray = []
+
+    for(let i=0; i<images.length; i++){
+      const promise = uploadFile(images[i])
+      promisesArray[i] = promise
+    }
+
+    const responses = await Promise.all(promisesArray)
+    console.log(responses);
 
     const altNamesInArray=altNames.split(",")
+
     const productData = {
         productId : productId,
         name : name,
         altNames : altNamesInArray,
         labellPrice : labellPrice,
         price : price,
-        images : [],    
+        images : responses,    
         description : description,
         stock : stock,
         isAvailable : isAvailable,
@@ -103,7 +115,12 @@ export default function AddProductPage() {
 
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Images</label>
-          <input type="text" value={images} onChange={(e)=>setImages(e.target.value)} className="w-full border-[2px] h-[40px] rounded-md px-2"/>
+          <input multiple type="file"  onChange={(e)=>{
+
+            const files = Array.from(e.target.files);
+            setImages((prevImages) => [...prevImages, ...files])
+
+          }} className="w-full border-[2px] h-[40px] rounded-md px-2"/>
         </div>
 
         <div className="flex flex-col gap-1">

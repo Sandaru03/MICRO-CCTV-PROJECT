@@ -1,97 +1,173 @@
 import Product from "../models/product.js";
+import { isAdmin } from "./userControllers.js";
 
-// Create product
-export const createProduct = (req, res) => {
-  new Product(req.body)
-    .save()
-    .then(() => res.json({ message: "Product created successfully" }))
-    .catch((err) => {
-      if (err?.code === 11000) {
-        return res.status(409).json({ message: "ProductId already exists" });
+//Create Product
+
+export async function createProduct(req,res){
+  if(!isAdmin(req)) {
+    return res.status(403).json(
+      {
+        message : "Access denied.Admin Only."
       }
-      res.status(500).json({ message: "Failed to create product", err });
+    )
+  }
+  const product = new Product(req.body);
+  
+  try{
+    const responses = await product.save();
+
+    res.json({
+      message : "Product Create Successfully",
+      product : responses,
     });
-};
-
-
-// Get product using productId 
-export const getProductById = (req, res) => {
-  const { productId } = req.params; 
-
-  Product.findOne({ productId })
-    .then((product) => {
-      if (!product) {
-        
-        return res.status(404).json(
-            { 
-                message: "Product not found" 
-            }
-        );
+  }catch(error){
+    console.error("Error creating product:,error");
+    return res.status(500).json(
+      {
+        message : "Failed to create product"
       }
-      res.json(product);
-    })
-    .catch((err) =>
-      res.status(500).json(
-        { 
-            message: "Failed to find product", err 
-            
-        })
-    );
-};
-
-
-
-// Update product by productId
-
-export function updateProductById(req, res) {
-  const productId = req.params.productId;
-  const updateData = { ...req.body };
-
-  Product.findOneAndUpdate({ productId: productId }, updateData, { new: true })
-    .then((updatedProduct) => {
-      if (!updatedProduct) {
-        return res.status(404).json(
-            { 
-                message: "Product not found" 
-            });
-      }
-      res.json({
-        message: "Product updated successfully",
-        data: updatedProduct
-      });
-    })
-    .catch((error) => {
-      res.status(500).json(
-        {
-             message: "Failed to update product", error 
-            });
-    });
+    )
+  }
 }
 
 
+//Get Product
 
-// Delete product by productId
+export async function getProducts(req,res){
+  console.log("Fetching Product")
+  try{
+    if(isAdmin(req)){
+      const products = await Product.find();
+      return res.json(products);
+    }else{
+      const products = await Product.find({isAvailable : true});
+      return res.json(products);
+  }
+}catch(error){
+  console.error("Error fetching products:",error);
+  return res.status(500).json(
+    {
+      message : "Failed to fetch products"
+    }
+  )
+}
+}
 
-export function deleteProductById(req, res) {
-  const productId = req.params.productId;
+//Update Product
 
-  Product.findOneAndDelete({ productId: productId })
-    .then((deletedProduct) => {
-      if (!deletedProduct) {
-        return res.status(404).json(
-            { 
-                message: "Product not found" 
-            });
+export async function updateProduct(req,res){
+  if (!isAdmin(req)){
+    res.status(403).json(
+      {
+        message : "Access denied. Admins Only"
       }
-      res.json({
-        message: "Product deleted successfully",
-        data: deletedProduct
-      });
-    })
-    .catch((error) => {
-      res.status(500).json(
-        { 
-            message: "Failed to delete product", error 
-        });
+    )
+    return;
+  }
+
+  const data = req.body;
+  const productId = req.params.productId;
+  data.productId = productId;
+
+  try{
+    await Product.updateOne(
+      {
+        productId : productId
+      },
+      data
+    );
+    res.json(
+      {
+        message : "Product Updated Successfully"
+      }
+    );
+  }catch(error) {
+    console.error("Error update product:",error);
+    res.status(500).json(
+      {
+        message : "Failed to update product"
+      }
+    );
+    return;
+  }
+}
+
+// Delete product
+
+export async function deleteProduct(req,res){
+  if(!isAdmin(req)){
+    res.status(403).json(
+      {
+        message : "Access denied. Admin Only."
+      }
+    );
+    return;
+  }
+
+  try{
+    const productId = req.params.productId;
+
+    await Product.deleteOne({
+      productId : productId,
     });
+
+    res.json(
+      {
+        message : "Product Deleted Successfully"
+      }
+    );
+
+  }catch(error){
+    console.error("Error deleting product:",error);
+    res.status(500).json(
+      {
+        message : "Failed to delete product"
+      }
+    );
+    return;
+  }
+}
+
+
+export async function getProductInfo(req,res){
+  try{
+    const productId = req.params.productId;
+    const product = await Product.findOne({productId : productId}) 
+
+    if(product==null){
+      res.status(404).json(
+        {
+          message : "Product not found"
+        }
+      )
+      return;
+    }
+
+    if(isAdmin(req)){
+      res.json(product);
+      
+    }else{
+      if(product.isAvailable){
+        res.json(product)
+      }else{
+        res.status(404).json(
+          {
+            message : "Product is not available"
+          }
+        )
+        return;
+      }
+
+  }
+}catch(error){
+  console.error("Error fetching product",error);
+  res.status(500).json(
+    {
+      message : "Failed to fetch product"
+
+    }
+  )
+  return;
+}
+
 }
