@@ -1,23 +1,31 @@
 import { useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
+import { BiEditAlt } from "react-icons/bi";
 import { HiMiniPlusCircle } from "react-icons/hi2";
 import { Link, useNavigate } from "react-router-dom"; 
 import axios from "axios";
 import toast from "react-hot-toast";
+import Loader from "../../assets/components/loader";
 
 
 export default function ProductAdminPage(){
     const [products,setProducts] = useState([]);
-    const [a,setA] = useState(0);
+
+    const [isLoading,setisLoading] = useState(true);
     useEffect(
         ()=>{
-            axios.get(import.meta.env.VITE_BACKEND_URL+"/products").then(
+            if(isLoading){
+                 axios.get(import.meta.env.VITE_BACKEND_URL+"/products").then(
                 (res)=>{
                     setProducts(res.data)
+                    setisLoading(false);
                 }
             )
+
+            }
+           
         },
-        [a]
+        [isLoading]
     )
 
     const navigate = useNavigate();
@@ -25,7 +33,10 @@ export default function ProductAdminPage(){
     return(
         <div className="w-full h-full border-[3px]">
 
-            <table>
+            {isLoading?(
+                <Loader/>
+                ) : (
+                <table>
                 <thead>
                     <tr>
                         <th className="p-[10px]">Image</th>
@@ -55,7 +66,7 @@ export default function ProductAdminPage(){
                                         <td className="p-[10px]">{product.labellPrice}</td>
                                         <td className="p-[10px]">{product.stock}</td>
                                         <td className="p-[10px]">{product.category}</td>
-                                        <td className="p-[10px]">
+                                        <td className="p-[10px] flex flex-row justify-center items-center">
                                             <BiTrash className="bg-red-600 p-[5px] text-3xl rounded-full text-white shadow-2xl shadow-red-600 cursor-pointer"
                                              onClick={
                                                 ()=>{
@@ -76,7 +87,7 @@ export default function ProductAdminPage(){
                                                             console.log("Product deleted successfully");
                                                             console.log(res.data);
                                                             toast.success("Product Deleted Successfully")
-                                                            setA(a+1);
+                                                            setisLoading(!isLoading); 
                                                         }
                                                     ).catch(
                                                         (error)=>{
@@ -86,6 +97,17 @@ export default function ProductAdminPage(){
                                                     )
                                                 }
                                              }/>
+
+                                             <BiEditAlt onClick={
+                                                ()=>{
+                                                    navigate("/admin/updateproduct",
+                                                        {
+                                                            state : product
+                                                        }
+                                                    )
+                                                }
+                                             } className="bg-black p-[7px] text-3xl rounded-full text-white shadow-2xl shadow-white cursor-pointer ml-[10px]" />
+
                                         </td>
 
                                     </tr>
@@ -94,7 +116,7 @@ export default function ProductAdminPage(){
                         )
                     }
                 </tbody>
-            </table>
+            </table>)}
 
 
             <Link to={"/admin/newproduct"} className="fixed right-[50px] bottom-[50px] text-white bg-black rounded-[50px]">

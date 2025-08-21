@@ -5,6 +5,7 @@ import { IoPeople } from "react-icons/io5";
 import { IoPeopleCircleOutline } from "react-icons/io5";
 import { HiShoppingBag } from "react-icons/hi2";
 import AddProductPage from "./admin/addProductAdminPage";
+import UpdateProductPage from "./admin/updateProduct";
 
 
 
@@ -27,6 +28,7 @@ export default function AdminPage(){
                   <Route path="/product" element={<ProductAdminPage/>}/>
                   <Route path="/order" element={<h1>Order</h1>}/>
                   <Route path="/newproduct" element={<AddProductPage/>}/>
+                  <Route path="/updateproduct" element={<UpdateProductPage/>}/>
                 </Routes>
                 
             </div>
