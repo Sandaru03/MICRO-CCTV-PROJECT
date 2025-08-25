@@ -10,6 +10,7 @@ import repairRouter from "./routers/repairRouter.js";
 import packageRouter from "./routers/packageRouter.js";
 import supplierRouter from "./routers/supplierRouter.js";
 import productRouter from "./routers/productRouter.js";
+import orderRouter from "./routers/orderRouter.js";
 
 dotenv.config()
 
@@ -61,6 +62,7 @@ app.use("/repairs",repairRouter)
 app.use("/packages",packageRouter)
 app.use("/suppliers",supplierRouter)
 app.use("/products",productRouter)
+app.use("/orders",orderRouter)
 
 
 app.listen(5000, 
