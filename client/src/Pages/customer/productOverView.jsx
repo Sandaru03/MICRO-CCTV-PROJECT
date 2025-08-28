@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loader from "../../assets/components/loader";
 import axios from "axios";
 import ImageSlider from "../../assets/components/imageSlider";
+import { addToCart, getCart } from "../../utils/cart";
 
 export default function ProductOverViewPage() {
   const params = useParams();
   const [product, setProduct] = useState(null);
   const [status, setStatus] = useState("loading");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (status === "loading") {
@@ -85,10 +87,27 @@ export default function ProductOverViewPage() {
 
           
             <div className="flex flex-row gap-4 mt-8">
-              <button className="px-6 py-3 rounded-xl shadow-lg text-white bg-red-700 border border-red-700 hover:bg-white hover:text-red-700 transition-all duration-300">
+              <button className="px-6 py-3 rounded-xl shadow-lg text-white bg-red-700 border border-red-700 hover:bg-white hover:text-red-700 transition-all duration-300" onClick={
+                ()=>{
+                  navigate("/checkout",{state : {items : [{
+                    productId: product.productId,
+                    quantity: 1,
+                    name: product.name,
+                    price: product.price,
+                    image: product.images[0]
+                  }]}});
+                }
+              } >
                 Buy Now
               </button>
-              <button className="px-6 py-3 rounded-xl shadow-lg text-white bg-red-500 border border-red-500 hover:bg-white hover:text-red-500 transition-all duration-300">
+              <button className="px-6 py-3 rounded-xl shadow-lg text-white bg-red-500 border border-red-500 hover:bg-white hover:text-red-500 transition-all duration-300" onClick={
+                ()=>{
+                  addToCart(product,1);
+                  toast.success("Product added to cart");
+
+                  console.log(getCart())
+                }
+              }>
                 Add to Cart
               </button>
             </div>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaVideo } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
 
 export default function Header() {
   return (
@@ -21,13 +22,25 @@ export default function Header() {
           <Link to="/contact" className="hover:text-red-500 transition">Contact</Link>
         </nav>
 
-        {/* Login Button */}
-        <Link
-          to="/login"
-          className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full font-semibold transition"
-        >
-          Login
-        </Link>
+        {/* Right Side: Cart + Login */}
+        <div className="flex items-center gap-4">
+
+          {/* Cart Button */}
+          <Link to="/cart"
+            className="relative flex items-center justify-center p-2 rounded-full hover:bg-white/10 transition"
+          >
+            <FaCartShopping className="w-6 h-6" />
+            
+            </Link>
+
+          {/* Login Button */}
+          {/* <Link
+            to="/login"
+            className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full font-semibold transition"
+          >
+            Login
+          </Link> */}
+        </div>
       </div>
     </header>
   );
