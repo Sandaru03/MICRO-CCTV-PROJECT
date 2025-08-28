@@ -56,7 +56,7 @@ const orderSchema = new mongoose.Schema({
 
             price : {
                 type : Number,
-                require : true
+                required : true
             },
 
             qty : {
@@ -69,6 +69,12 @@ const orderSchema = new mongoose.Schema({
     notes : {
         type : String,
         default : "no additional notes"
+    },
+
+    total : {
+        type : Number,
+        required : true,
+        default : 0
     }
 })
 
