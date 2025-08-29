@@ -1,7 +1,6 @@
 export default function Paginator({ currentPage, totalPages, setCurrentPage, limit, setlimit }) {
     return (
         <div className="w-full flex flex-row justify-center items-center gap-[20px] p-4">
-            {/* Page Selector */}
             <select
                 className="border border-gray-300 rounded-lg p-[10px]"
                 value={currentPage}
@@ -14,7 +13,6 @@ export default function Paginator({ currentPage, totalPages, setCurrentPage, lim
                 ))}
             </select>
 
-            {/* Limit Selector */}
             <select
                 className="border border-gray-300 rounded-lg p-[10px]"
                 value={limit}
@@ -26,7 +24,6 @@ export default function Paginator({ currentPage, totalPages, setCurrentPage, lim
                 <option value={50}>50</option>
             </select>
 
-            {/* Info */}
             <span className="text-gray-700">
                 Page {currentPage} of {totalPages}
             </span>
