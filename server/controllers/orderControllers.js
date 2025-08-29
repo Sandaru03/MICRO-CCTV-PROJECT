@@ -103,6 +103,11 @@ export async function createOrder(req,res){
 
 
 export async function getOrders(req,res){
+
+    const page = parseInt(req.params.page) || 1;
+    const limit = parseInt(req.params.limit) || 10;
+
+
     if(req.user==null){
         res.status(404).json(
             {
@@ -115,15 +120,27 @@ export async function getOrders(req,res){
     try{
 
         if(req.user.role == "admin"){
-            const orders = await Order.find().sort({date : -1});
-            res.json(orders)
-        }else{
-            const orders = await Order.find(
+            
+            const orderCount = await Order.countDocuments();
+            const totalPages = Math.ceil(orderCount / limit);
+
+            const orders = await Order.find().skip((page - 1) * limit).limit(limit).sort({date : -1});
+            res.json(
                 {
-                    email : req.user.email
+                    orders : orders,
+                    totalPages : totalPages,
                 }
             )
-            res.json(orders);
+        }else{
+            const orderCount = await Order.countDocuments();
+            const totalPages = Math.ceil(orderCount / limit);
+            const orders = await Order.find().skip((page - 1) * limit).limit(limit).sort({date : -1})
+            res.json(
+                {
+                    orders : orders,
+                    totalPages : totalPages,
+                }
+            );
         }
 
 

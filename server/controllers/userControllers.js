@@ -65,64 +65,64 @@ export function createAdmin(req, res) {
         });
 }
 
-// Get All Users
-export function getUsers(req, res) {
-    User.find()
-        .then((user) => {
-            res.json(user);
-        })
-        .catch(() => {
-            res.json({
-                message: "Failed to fetch users",
-            });
-        });
-}
+// // Get All Users
+// export function getUsers(req, res) {
+//     User.find()
+//         .then((user) => {
+//             res.json(user);
+//         })
+//         .catch(() => {
+//             res.json({
+//                 message: "Failed to fetch users",
+//             });
+//         });
+// }
 
-// Update User by Email
-export function updateUserByEmail(req, res) {
-    const email = req.params.email;
-    const updateData = { ...req.body };
+// // Update User by Email
+// export function updateUserByEmail(req, res) {
+//     const email = req.params.email;
+//     const updateData = { ...req.body };
 
-    if (req.body.password) {
-        updateData.password = bcrypt.hashSync(req.body.password, 10);
-    }
+//     if (req.body.password) {
+//         updateData.password = bcrypt.hashSync(req.body.password, 10);
+//     }
 
-    User.findOneAndUpdate({ email: email }, updateData, { new: true })
-        .then((updateduser) => {
-            if (!updateduser) {
-                return res.status(404).json({ message: "User not found" });
-            }
-            res.json({
-                message: "User updated successfully",
-                data: updateduser
-            });
-        })
-        .catch((error) => {
-            res.status(500).json({ message: "Failed to update User", error });
-        });
-} 
+//     User.findOneAndUpdate({ email: email }, updateData, { new: true })
+//         .then((updateduser) => {
+//             if (!updateduser) {
+//                 return res.status(404).json({ message: "User not found" });
+//             }
+//             res.json({
+//                 message: "User updated successfully",
+//                 data: updateduser
+//             });
+//         })
+//         .catch((error) => {
+//             res.status(500).json({ message: "Failed to update User", error });
+//         });
+// } 
 
-// Delete User by Email
-export function deleteUserByEmail(req, res) {
-    const email = req.params.email;
+// // Delete User by Email
+// export function deleteUserByEmail(req, res) {
+//     const email = req.params.email;
 
-    User.findOneAndDelete({ email: email })
-        .then((deleteduser) => {
-            if (!deleteduser) {
-                return res.status(404).json({ message: "User not found" });
-            }
-            res.json({
-                message: "User deleted successfully",
-                data: deleteduser
-            });
-        })
-        .catch((error) => {
-            res.status(500).json({ message: "Failed to delete user", error });
-        });
-}
+//     User.findOneAndDelete({ email: email })
+//         .then((deleteduser) => {
+//             if (!deleteduser) {
+//                 return res.status(404).json({ message: "User not found" });
+//             }
+//             res.json({
+//                 message: "User deleted successfully",
+//                 data: deleteduser
+//             });
+//         })
+//         .catch((error) => {
+//             res.status(500).json({ message: "Failed to delete user", error });
+//         });
+// }
 
 
-
+//login Users
 export function LoginUser(req, res) {
     const email = req.body.email;
     const password = req.body.password;
@@ -165,6 +165,15 @@ export function LoginUser(req, res) {
                 error: error.message
             });
         });
+}
+
+export function getUser(req,res){
+    if(req.user == null){
+         res.status(404).json({message: "User Not Found"});
+    }else{
+         res.json(req.user);
+    }
+
 }
 
 
