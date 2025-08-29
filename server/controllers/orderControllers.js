@@ -1,5 +1,7 @@
 import Order from "../models/order.js";
 import Product from "../models/product.js";
+import { isAdmin } from "./userControllers.js";
+
 
 
 export async function createOrder(req,res){
@@ -151,5 +153,49 @@ export async function getOrders(req,res){
             }
         )
 
+    }
+}
+
+
+export function updateOrder(req,res){
+    if(isAdmin(req)){
+        const orderId = req.params.id;
+        const status = req.body.status;
+        const notes = req.body.notes;
+
+        Order.findOneAndUpdate(
+            { orderId : orderId },
+            { status : status , notes : notes },
+            { new : true }
+        ).then(updatedOrder=>{
+            if(updatedOrder){
+                res.json(
+                    {
+                        message : "Order updated successfully",
+                        order : updatedOrder
+                    }
+                )
+            }else{
+                res.status(404).json(
+                    {
+                        message : "Order not found"
+                    }
+                )
+            }
+        }).catch(err=>{
+            console.error("Error updating order:", err);
+            res.status(500).json(
+                {
+                    message : "Failed to update order"
+                }
+            )
+        })
+
+    }else{
+        res.status(403).json(
+            {
+                message : "Access denied"
+            }
+        )
     }
 }
