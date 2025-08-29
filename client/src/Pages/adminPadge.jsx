@@ -6,6 +6,9 @@ import { IoPeopleCircleOutline } from "react-icons/io5";
 import { HiShoppingBag } from "react-icons/hi2";
 import AddProductPage from "./admin/addProductAdminPage";
 import UpdateProductPage from "./admin/updateProduct";
+import { FaBoxArchive } from "react-icons/fa6";
+import OrdersPageAdmin from "./admin/ordersPageAdmin";
+
 
 
 
@@ -21,12 +24,15 @@ export default function AdminPage(){
                 <Link className="flex flex-row h-[60px] w-full  p-[20px] items-center text-xl gap-[25px]" to="/admin/employee"><IoPeople />Employee</Link>
                 <Link className="flex flex-row h-[60px] w-full  p-[20px] items-center text-xl gap-[25px]" to="/admin/supplier"><IoPeopleCircleOutline />Supplier</Link>
                 <Link className="flex flex-row h-[60px] w-full  p-[20px] items-center text-xl gap-[25px]" to="/admin/product"><HiShoppingBag />Product</Link>
+                <Link className="flex flex-row h-[60px] w-full  p-[20px] items-center text-xl gap-[25px]" to="/admin/order"><FaBoxArchive />Order</Link>
+
+
             </div>
             <div className="w-[calc(100%-300px)] h-full">
                 <Routes path="/">
                   <Route path="/" element={<h1>Dashboard</h1>}/>
                   <Route path="/product" element={<ProductAdminPage/>}/>
-                  <Route path="/order" element={<h1>Order</h1>}/>
+                  <Route path="/order" element={<OrdersPageAdmin/>}/>
                   <Route path="/newproduct" element={<AddProductPage/>}/>
                   <Route path="/updateproduct" element={<UpdateProductPage/>}/>
                 </Routes>
