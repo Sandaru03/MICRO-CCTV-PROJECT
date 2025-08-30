@@ -40,7 +40,7 @@ export default function CartPage() {
                     <span className="font-bold">Rs {(item.price * item.quantity).toFixed(2)}</span>
                 </div>
                 
-                <button className="w-[30px] h-[30px] bg-red-600 text-white font-bold hover:bg-red-500 cursor-pointer rounded-full mr-[20px] flex items-center justify-center " onClick={
+                <button className="w-[30px] h-[30px] bg-accent text-white font-bold hover:bg-red-500 cursor-pointer rounded-full mr-[20px] flex items-center justify-center " onClick={
                     ()=>{
                         addToCart(item,-item.quantity);
                         setCart(getCart());
@@ -58,7 +58,7 @@ export default function CartPage() {
             Total: Rs {cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)} 
             </span>
 
-            <button className="absolute left-10 bg-red-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-red-500 cursor-pointer transition" onClick={
+            <button className="absolute left-10 bg-accent text-white px-5 py-2 rounded-full font-semibold hover:bg-red-500 cursor-pointer transition" onClick={
                 ()=>{
                     navigate("/checkout",{state:{items:cart}});
                 } 

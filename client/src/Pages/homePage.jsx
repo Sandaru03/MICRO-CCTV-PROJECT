@@ -4,23 +4,7 @@ import { FaVideo, FaShieldAlt, FaBell, FaClock, FaCog, FaTools, FaEnvelope, FaPh
 export default function HomePage() {
   return (
     <div className="w-full min-h-screen bg-neutral-50 text-neutral-900">
-      {/* Top Nav */}
-      <header className="sticky top-0 z-40 backdrop-blur bg-black/60 text-white">
-        <div className="max-w-6xl mx-auto flex items-center justify-between py-3 px-4">
-          <div className="flex items-center gap-2 font-bold tracking-wide">
-            <FaVideo className="w-6 h-6" />
-            <span>MICRO CCTV</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <Link to="/" className="hover:text-red-500">HOME</Link>
-            <Link to="/shop" className="hover:text-red-500">SHOP</Link>
-            <Link to="/service" className="hover:text-red-500">SERVICE</Link>
-            <Link to="/about" className="hover:text-red-500">ABOUT</Link>
-            <Link to="/contact" className="hover:text-red-500">CONTACT</Link>
-          </nav>
-          <Link to="/login" className="text-xs md:text-sm bg-red-600 hover:bg-red-700 transition rounded-full px-4 py-2">LOGIN</Link>
-        </div>
-      </header>
+     
 
       {/* HERO */}
       <section className="relative w-full min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden bg-black">
