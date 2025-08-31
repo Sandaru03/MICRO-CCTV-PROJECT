@@ -81,62 +81,6 @@ export function createAdmin(req, res) {
         });
 }
 
-// // Get All Users
-// export function getUsers(req, res) {
-//     User.find()
-//         .then((user) => {
-//             res.json(user);
-//         })
-//         .catch(() => {
-//             res.json({
-//                 message: "Failed to fetch users",
-//             });
-//         });
-// }
-
-// // Update User by Email
-// export function updateUserByEmail(req, res) {
-//     const email = req.params.email;
-//     const updateData = { ...req.body };
-
-//     if (req.body.password) {
-//         updateData.password = bcrypt.hashSync(req.body.password, 10);
-//     }
-
-//     User.findOneAndUpdate({ email: email }, updateData, { new: true })
-//         .then((updateduser) => {
-//             if (!updateduser) {
-//                 return res.status(404).json({ message: "User not found" });
-//             }
-//             res.json({
-//                 message: "User updated successfully",
-//                 data: updateduser
-//             });
-//         })
-//         .catch((error) => {
-//             res.status(500).json({ message: "Failed to update User", error });
-//         });
-// } 
-
-// // Delete User by Email
-// export function deleteUserByEmail(req, res) {
-//     const email = req.params.email;
-
-//     User.findOneAndDelete({ email: email })
-//         .then((deleteduser) => {
-//             if (!deleteduser) {
-//                 return res.status(404).json({ message: "User not found" });
-//             }
-//             res.json({
-//                 message: "User deleted successfully",
-//                 data: deleteduser
-//             });
-//         })
-//         .catch((error) => {
-//             res.status(500).json({ message: "Failed to delete user", error });
-//         });
-// }
-
 
 //login Users
 export function LoginUser(req, res) {
@@ -183,15 +127,8 @@ export function LoginUser(req, res) {
         });
 }
 
-export function getUser(req,res){
-    if(req.user == null){
-         res.status(404).json({message: "User Not Found"});
-    }else{
-         res.json(req.user);
-    }
 
-}
-
+//isAdmin 
 
 export function isAdmin(req){
 
@@ -206,7 +143,7 @@ export function isAdmin(req){
     }
 }
 
-
+//Google Login
 export async function googleLogin(req, res) {
     const googleToken = req.body.token;
 
@@ -278,6 +215,8 @@ export async function googleLogin(req, res) {
     }
 }
 
+
+//OTP
 export async function sendOTP(req,res){
     const email = req.body.email;
     //random number between 111111 and 999999
@@ -311,7 +250,7 @@ export async function sendOTP(req,res){
 }
 
 
-
+//Reset Password
 export async function resetPassword(req,res){
     const email = req.body.email;
     const newPassword = req.body.newPassword;
@@ -336,4 +275,63 @@ export async function resetPassword(req,res){
         console.log(err)
         res.status(500).json({ message: "Failed to reset password" });
     }
+}
+
+
+// Get All Admins
+export const getAdmins = async (req, res) => {
+  try {
+    const admins = await User.find({ role: "admin" });
+    res.json(admins);  // return array of admins
+  } catch (error) {
+    res.status(500).json({ message: "Failed to load admins", error });
+  }
+};
+
+
+// Delete admin by email
+export const deleteAdmin = async (req, res) => {
+  const email = req.params.email;
+
+  try {
+    const deleted = await User.findOneAndDelete({ email: email, role: "admin" });
+    if (!deleted) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+    res.json({ message: "Admin deleted successfully", deleted });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete admin", error });
+  }
+};
+
+
+// userControllers.js
+export function getUser(req, res) {
+  if (!req.user || !req.user.email) {
+    console.error("No user data in token:", req.user);
+    return res.status(401).json({ message: "Unauthorized: No user data found in token" });
+  }
+
+  User.findOne({ email: req.user.email })
+    .then((user) => {
+      if (!user) {
+        console.error("User not found for email:", req.user.email);
+        return res.status(404).json({ message: "User not found in database" });
+      }
+      console.log("User data fetched:", user); // Debug log
+      res.json({
+        firstName: user.firstName || "Not Provided",
+        lastName: user.lastName || "Not Provided",
+        email: user.email || "Not Provided",
+        phone: user.phone || "Not Provided",
+        role: user.role || "customer",
+        isEmailVerified: user.isEmailVerified || false,
+        isBlock: user.isBlock || false,
+        image: user.image || null,
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user details", error: error.message });
+    });
 }
