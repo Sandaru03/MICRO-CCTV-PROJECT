@@ -5,19 +5,19 @@ import dotenv from "dotenv";
 import axios from "axios";
 import nodemailer from "nodemailer";
 import OTP from "../models/otp.js";
-const pw="njppmjrdxsbnrvif"
+
 
 
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-	host: "smtp.gmail.com",
-	port: 587,
-	secure: false,
-	auth: {
-		user: "sandarudilshan24@gmail.com",
-		pass: pw,
-	},
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
 });
 
 
@@ -289,7 +289,7 @@ export async function sendOTP(req,res){
         await newOTP.save();
 
         const message = {
-            from : "sandarudilshan24@gmail.com",
+            from : process.env.EMAIL_USER, 
             to: email,
             subject: "Your OTP Code",
             text: `Your OTP code is ${otpCode}`,
