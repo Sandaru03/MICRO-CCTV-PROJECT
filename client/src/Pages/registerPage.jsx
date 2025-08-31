@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 export default function RegisterPage() {
+  const navigate = useNavigate(); // useNavigate hook එක
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -31,6 +32,9 @@ export default function RegisterPage() {
         formData
       );
       toast.success(res.data.message);
+
+      // Sign up success උනාම login page එකට navigate වෙනවා
+      navigate("/login");
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");
     }

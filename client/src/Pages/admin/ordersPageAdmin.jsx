@@ -84,7 +84,7 @@ export default function OrdersPageAdmin() {
                   orders.map((order, index) => (
                     <tr
                       key={index}
-                      className="border-b border-gray-300 transition-transform hover:-translate-y-1 duration-200 hover:bg-red-400 hover:text-white cursor-pointer"
+                      className="border-b border-gray-300 text-black transition-transform hover:-translate-y-1 duration-200 hover:bg-red-400 hover:text-white cursor-pointer"
                       onClick={() => {
                         setOrderStatus(order.status);
                         setOrderNotes(order.notes);
@@ -174,7 +174,7 @@ export default function OrdersPageAdmin() {
 
                   {/* Customer Info */}
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-lg font-semibold mb-2 text-gray-700">
                       Customer Information
                     </h3>
                     <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
@@ -199,7 +199,7 @@ export default function OrdersPageAdmin() {
 
                   {/* Order Status */}
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-2">Order Status</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-700">Order Status</h3>
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium ${
                         clickOrder.status === "pending"
@@ -218,7 +218,7 @@ export default function OrdersPageAdmin() {
                       {clickOrder.status}
                     </span>
                     <select
-                      className="ml-4 p-1 border rounded"
+                      className="ml-4 p-1 border rounded text-gray-700"
                       value={orderStatus}
                       onChange={(e) => setOrderStatus(e.target.value)}
                     >
@@ -230,10 +230,10 @@ export default function OrdersPageAdmin() {
 
                   {/* Notes */}
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-2">Notes</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-700">Notes</h3>
                     <p className="text-sm text-gray-600 italic">{clickOrder.notes}</p>
                     <textarea
-                      className="w-full h-[50px] p-2 border rounded mt-2"
+                      className="w-full h-[50px] p-2 border rounded mt-2 text-gray-700"
                       value={ordernotes}
                       onChange={(e) => setOrderNotes(e.target.value)}
                     ></textarea>
@@ -241,7 +241,7 @@ export default function OrdersPageAdmin() {
 
                   {/* Items */}
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-2">Items</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-700">Items</h3>
                     <div className="space-y-4 max-h-[150px] overflow-y-auto">
                       {clickOrder.items.map((item) => (
                         <div

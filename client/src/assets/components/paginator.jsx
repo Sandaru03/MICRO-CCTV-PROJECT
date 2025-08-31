@@ -1,6 +1,6 @@
 export default function Paginator({ currentPage, totalPages, setCurrentPage, limit, setlimit }) {
     return (
-        <div className="w-full flex flex-row justify-center items-center gap-[20px] p-4">
+        <div className="w-full flex flex-row justify-center items-center gap-[20px] p-4 text-red-500">
             <select
                 className="border border-gray-300 rounded-lg p-[10px]"
                 value={currentPage}

@@ -9,6 +9,8 @@ import ClientWebPage from './Pages/customer/customerPage';
 import HomePage from './Pages/homePage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ForgetPasswordPage from './Pages/customer/forgetPassword';
+import TechnicianLogin from './Pages/technicianLoginPage';
+import TechnicianRepairPage from './Pages/technicianRepairPage';
 
 
 const clientId = "31227047536-dkeq9a5rh5h4r0nl3sq8odnils5e22ip.apps.googleusercontent.com";
@@ -28,6 +30,8 @@ function App() {
         <Route path="/*" element={<ClientWebPage/>}/>
         <Route path="/home" element={<HomePage/>}/>
         <Route path="/forget" element={<ForgetPasswordPage/>}/>
+        <Route path="/technician/login" element={<TechnicianLogin/>}/>
+        <Route path="/technician/repairs" element={<TechnicianRepairPage/>}/>
         
       </Routes>
       </div>
