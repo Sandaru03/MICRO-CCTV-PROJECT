@@ -4,6 +4,11 @@ import ProductsPage from "./productsPage";
 import ProductOverViewPage from "./productOverView";
 import CartPage from "./cart";
 import CheckoutPage from "./checkoutPage";
+import HomePage from "../homePage";
+import ProfilePage from "./profilePage";
+import RepairStatusPage from "../repairPage";
+import AboutUs from "./about";
+import ContactPage from "./contactUs";
 
 
 export default function ClientWebPage(){
@@ -14,14 +19,15 @@ export default function ClientWebPage(){
 
             <div className="w-full h-[calc(100%-90px)]">
                 <Routes path="/">
-                    <Route path="/" element={<h1 className="text-3xl text-red-700 text-center">Welcome to Home page</h1>}/>
+                    <Route path="/" element={<HomePage/>}/>
                     <Route path="/shop" element={<ProductsPage/>}/>
-                    <Route path="/service" element={<h1 className="text-3xl text-red-700 text-center">Welcome to service Page</h1>}/>
-                    <Route path="/about" element={<h1 className="text-3xl text-red-700 text-center">Welcome to about Page</h1>}/>
-                    <Route path="/contact" element={<h1 className="text-3xl text-red-700 text-center">Welcome to contact Page</h1>}/>
+                    <Route path="/service" element={<RepairStatusPage/>}/>
+                    <Route path="/about" element={<AboutUs/>}/>
+                    <Route path="/contact" element={<ContactPage/>}/>
                     <Route path="/overview/:productId" element={<ProductOverViewPage/>}/>
                     <Route path="/cart" element={<CartPage/>}/>
                     <Route path="/checkout" element={<CheckoutPage/>}/>
+                    <Route path="/profile" element={<ProfilePage/>}/>
                     <Route path="/*" element={<h1 className="text-3xl text-red-700 text-center">404 Not Found</h1>}/>  
                 </Routes>
             </div>

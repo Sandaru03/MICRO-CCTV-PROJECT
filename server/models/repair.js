@@ -12,14 +12,13 @@ const repairSchema = new mongoose.Schema({
             required : true
         },
 
-        customerId : {
+        progress : {
             type : String,
             required : true
         },
 
-        progress : {
+        notes : {
             type : String,
-            required : true
         },
 
         estimatedDate : {

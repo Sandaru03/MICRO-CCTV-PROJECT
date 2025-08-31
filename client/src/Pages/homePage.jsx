@@ -1,29 +1,12 @@
 import { Link } from "react-router-dom";
-import { FaVideo, FaShieldAlt, FaBell, FaClock, FaCog, FaTools, FaEnvelope, FaPhone } from "react-icons/fa";
+import { FaVideo, FaShieldAlt, FaBell, FaClock, FaCog, FaTools, FaEnvelope, FaPhone, FaLaptop } from "react-icons/fa";
 
 export default function HomePage() {
   return (
     <div className="w-full min-h-screen bg-neutral-50 text-neutral-900">
-      {/* Top Nav */}
-      <header className="sticky top-0 z-40 backdrop-blur bg-black/60 text-white">
-        <div className="max-w-6xl mx-auto flex items-center justify-between py-3 px-4">
-          <div className="flex items-center gap-2 font-bold tracking-wide">
-            <FaVideo className="w-6 h-6" />
-            <span>MICRO CCTV</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <Link to="/" className="hover:text-red-500">HOME</Link>
-            <Link to="/shop" className="hover:text-red-500">SHOP</Link>
-            <Link to="/service" className="hover:text-red-500">SERVICE</Link>
-            <Link to="/about" className="hover:text-red-500">ABOUT</Link>
-            <Link to="/contact" className="hover:text-red-500">CONTACT</Link>
-          </nav>
-          <Link to="/login" className="text-xs md:text-sm bg-red-600 hover:bg-red-700 transition rounded-full px-4 py-2">LOGIN</Link>
-        </div>
-      </header>
 
       {/* HERO */}
-      <section className="relative w-full min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden bg-black">
+      <section className="relative w-full min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden bg-black pt-[90px]">
         <img
           src="/Hero.jpg"
           alt="Control room"
@@ -33,17 +16,17 @@ export default function HomePage() {
         <img
           src="/ne.png"
           alt="CCTV cameras"
-          className="pointer-events-none absolute right-0 top-10 w-[520px] max-w-[85%] hidden md:block"
+          className="pointer-events-none absolute right-0 top-40 w-[520px] max-w-[85%] hidden md:block"
         />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight drop-shadow">
-            <span className="block">MICRO</span>
+        <div className="z-10 max-w-6xl mx-auto px-6 py-16 absolute top-[130px] right-170">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight drop-shadow">
+            <span className="block text-[80px]">MICRO</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500">CCTV</span>
           </h1>
           <p className="mt-4 text-2xl md:text-3xl font-semibold text-white">SECURITY SOLUTION</p>
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
+          <div className="mt-10 flex justify-center grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
             <FeatureBadge icon={<FaVideo className="w-5 h-5" />} title="Premium Indoor" desc="Cameras" />
             <FeatureBadge icon={<FaShieldAlt className="w-5 h-5" />} title="Amazing Security" desc="Systems" />
             <FeatureBadge icon={<FaClock className="w-5 h-5" />} title="24/7 Quick Alarms" desc="Response" />
@@ -56,12 +39,21 @@ export default function HomePage() {
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-sm tracking-widest text-red-600 font-semibold">ABOUT US</p>
-            <h2 className="mt-2 text-3xl md:text-4xl font-extrabold leading-tight">
-              Protecting homes,
-              <br /> businesses and
-              <br /> peace
-            </h2>
-            <p className="mt-5 text-sm leading-relaxed text-neutral-700 max-w-[520px]">
+            <div>
+              <p className="text-sm tracking-widest md:text-4xl text-red-600 font-extrabold absolute top-195 ">Protecting homes,</p>
+            </div>
+            <div>
+              <h2 className="mt-2 text-3xl md:text-4xl font-extrabold leading-tight relative left-40 top-5 ">
+                <br /> businesses and
+              </h2>
+            </div>
+            <div>
+              <h2 className="mt-2 text-3xl md:text-4xl font-extrabold leading-tight relative left-100 top-[-35px]">
+                <br /> peace
+              </h2>
+            </div>
+
+            <p className="mt-5 text-sm font-semibold leading-relaxed text-neutral-700 max-w-[520px]">
               We specialize in providing top-quality security and CCTV solutions to safeguard your home and business.
               Our mission is to ensure peace of mind with reliable, innovative, and tailored protection systems.
             </p>
@@ -73,12 +65,18 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid gap-6">
-            <img src="/Ph1.jpg" alt="Tech installing camera" className="rounded-xl shadow-lg object-cover w-full h-64" />
-            <div className="grid grid-cols-2 gap-6">
-              <img src="/Ph1.jpg" alt="Operations desk" className="rounded-xl shadow-lg object-cover h-48 w-full" />
-              <img src="/Ph2.jpg" alt="Monitoring" className="rounded-xl shadow-lg object-cover h-48 w-full" />
-            </div>
+          <div className="relative w-full h-[420px]">
+            <img
+              src="/Ph1.jpg"
+              alt="Tech installing camera"
+              className="absolute top-0 left-50 w-72 h-70 object-cover rounded-xl shadow-lg"
+            />
+
+            <img
+              src="/Ph2.jpg"
+              alt="Monitoring"
+              className="absolute bottom-0 top-[250px] left-10 w-72 h-70 object-cover rounded-xl shadow-lg"
+            />
           </div>
         </div>
 
@@ -93,54 +91,64 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-2 mb-8">
             <div className="w-5 h-5 rounded-full bg-red-500" />
-            <h3 className="text-xl font-bold tracking-wide">SERVICES</h3>
+            <h3 className="text-xl font-bold tracking-wide absolute left-175">SERVICES</h3>
           </div>
 
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <ServiceCard
-              img="/Ph3.jpg"
-              title="CCTV Installation"
-              icon={<FaTools className="w-5 h-5" />}
-            />
-            <ServiceCard
-              img="/Ph4.jpg"
-              title="Security Systems"
-              icon={<FaShieldAlt className="w-5 h-5" />}
-            />
-            <ServiceCard
-              img="/Ph5.jpg"
-              title="Alarm Systems Installation"
-              icon={<FaBell className="w-5 h-5" />}
-            />
+            <ServiceCard img="/Ph3.jpg" title="CCTV Installation" icon={<FaTools className="w-5 h-5" />} />
+            <ServiceCard img="/Ph4.jpg" title="Security Systems" icon={<FaShieldAlt className="w-5 h-5 " />} />
+            <ServiceCard img="/Ph5.jpg" title="Alarm Systems Installation" icon={<FaBell className="w-5 h-5" />} />
           </div>
         </div>
       </section>
 
       {/* WHY CHOOSE US */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center gap-2 mb-10">
-            <div className="w-5 h-5 rounded-full bg-red-500" />
-            <h3 className="text-xl font-bold tracking-wide">WHY CHOOSE US</h3>
+      <section className="py-16 h-[750px]">
+        <div className="max-w-6xl mx-auto px-6" >
+          <div className="flex items-center justify-center mb-10 gap-2">
+            <span className="text-red-500 text-xl">
+              <i className="fas fa-user-check"></i>
+            </span>
+            <h3 className="text-xl font-bold tracking-wide text-gray-800">
+              WHY CHOOSE US
+            </h3>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-10 items-center">
-            <div className="space-y-10 order-2 lg:order-1">
-              <WhyItem icon={<FaClock className="w-6 h-6" />} title="24/7 Support" desc="Professional CCTV installation services offering high-quality cameras." />
-              <WhyItem icon={<FaCog className="w-6 h-6" />} title="Remote Access" desc="Monitor your premises from anywhere with reliable access." />
+          <div className="grid lg:grid-cols-3 gap-10 items-center text-center">
+            {/* Left */}
+            <WhyItem 
+              icon={<FaClock className="w-6 h-6" />} 
+              title="24/7 Support" 
+              desc="We provide professional CCTV installation services offering high-quality cameras." 
+            />
+
+            {/* Middle Image */}
+            <div>
+              <img src="/Ph7.png" alt="Cameras" className="mx-auto max-h-[220px]" />
             </div>
 
-            <div className="order-1 lg:order-2">
-              <img src="/Ph7.png" alt="Cameras" className="mx-auto max-h-[360px] object-contain" />
-            </div>
+            {/* Right */}
+            <WhyItem 
+              icon={<FaTools className="w-6 h-6" />} 
+              title="Customized Solution" 
+              desc="We provide professional CCTV installation services offering high-quality cameras." 
+            />
 
-            <div className="space-y-10 order-3">
-              <WhyItem icon={<FaShieldAlt className="w-6 h-6" />} title="Customized Solution" desc="Tailored security systems to meet your exact needs." />
-              <WhyItem icon={<FaTools className="w-6 h-6" />} title="Quality Installation" desc="Clean, safe, and durable installs by professionals." />
+            {/* Bottom (full width center) */}
+            <div className="col-span-3 flex justify-center mt-6">
+              <WhyItem 
+                icon={<FaLaptop className="w-6 h-6" />} 
+                title="Remote Access" 
+                desc="We provide professional CCTV installation services offering high-quality cameras." 
+              />
             </div>
           </div>
         </div>
       </section>
+
+      <div>
+            <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[2359px] -translate-y-20 right-10" />
+          </div>
 
       {/* CONTACT CTA */}
       <section className="relative bg-red-600 text-white overflow-hidden">
@@ -161,9 +169,13 @@ export default function HomePage() {
               </a>
             </div>
           </div>
+          
 
-          <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px]" />
-        </div>
+        </div>  
+        <div>
+            <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[-70px] -translate-y-20 right-10 " />
+          </div>
+        
       </section>
 
       {/* FOOTER */}
@@ -228,15 +240,26 @@ function FeatureBadge({ icon, title, desc }) {
 
 function ServiceCard({ img, title, icon }) {
   return (
-    <div className="group rounded-2xl overflow-hidden shadow-sm bg-white">
+    <div className="group relative rounded-2xl overflow-hidden shadow-sm bg-white cursor-pointer">
+      {/* Image section */}
       <div className="relative h-40">
         <img src={img} alt={title} className="w-full h-full object-cover" />
         <div className="absolute -bottom-6 left-6 inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-600 text-white shadow-lg">
           {icon}
         </div>
       </div>
+
+      {/* Title */}
       <div className="pt-8 pb-6 px-6">
         <h4 className="font-semibold">{title}</h4>
+      </div>
+
+      {/* Popup on hover */}
+      <div className="absolute inset-0 bg-black/70 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <p className="text-lg font-bold">{title}</p>
+        <p className="text-sm mt-2 px-4 text-center">
+          Get the best {title} with professional installation and service.
+        </p>
       </div>
     </div>
   );
@@ -244,14 +267,14 @@ function ServiceCard({ img, title, icon }) {
 
 function WhyItem({ icon, title, desc }) {
   return (
-    <div className="flex items-start gap-4">
-      <div className="w-10 h-10 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0">
-        {icon}
+    <div className="text-center space-y-3">
+      <div className="flex justify-center">
+        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-red-500 text-white text-2xl">
+          {icon}
+        </div>
       </div>
-      <div>
-        <p className="font-semibold">{title}</p>
-        <p className="text-sm text-neutral-600 mt-1 max-w-[280px]">{desc}</p>
-      </div>
+      <h4 className="text-lg font-semibold">{title}</h4>
+      <p className="text-sm text-gray-600 max-w-[260px] mx-auto">{desc}</p>
     </div>
   );
 }

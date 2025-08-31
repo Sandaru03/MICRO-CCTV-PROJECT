@@ -11,15 +11,26 @@ export default function ProductsPage() {
   const [maxPrice, setMaxPrice] = useState(50000);
   const [sort, setSort] = useState("latest");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    if (loading) {
+ useEffect(() => {
+  if (loading) {
+    if(query === ""){
+      
       axios.get(import.meta.env.VITE_BACKEND_URL + "/products").then((res) => {
         setProducts(res.data);
         setLoading(false);
       });
+    } else {
+      
+      axios.get(import.meta.env.VITE_BACKEND_URL + "/products/search/" + query).then((res) => {
+        setProducts(res.data);
+        setLoading(false);
+      });
     }
-  }, [loading]);
+  }
+}, [loading, query]);
+
 
   const filteredProducts = products
     .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
@@ -40,12 +51,16 @@ export default function ProductsPage() {
 
         {/* Search */}
         <input
-          type="text"
-          placeholder="Search Products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full p-2 mb-6 border rounded-lg"
-        />
+        type="text"
+        placeholder="Search Products..."
+        value={query}
+        onChange={(e) =>{
+        setQuery(e.target.value);
+        setLoading(true);
+       }}
+       className="w-full p-2 mb-6 border rounded-lg"
+      />
+
 
         {/* Price Filter */}
         <span className="font-semibold mb-2">Filter By Price</span>

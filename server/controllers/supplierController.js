@@ -1,7 +1,15 @@
-// Updated supplierControllers.js File
-
 import Supplier from "../models/supplier.js";
 import bcrypt from "bcrypt";
+import nodemailer from "nodemailer";
+
+// Nodemailer transporter configuration
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER, // Your email address from .env
+        pass: process.env.EMAIL_PASS, // Your email password or app-specific password from .env
+    },
+});
 
 // Create Supplier (Admin Only)
 export function createSupplier(req, res) {
@@ -109,4 +117,44 @@ export function loginSupplier(req, res) {
         .catch((error) => {
             res.status(500).json({ message: "Login error", error });
         });
+}
+
+// Send Purchase Request Email to Supplier
+export async function sendPurchaseRequest(req, res) {
+    const email = req.params.email;
+    const { item, quantity, requiredDate } = req.body;
+
+    try {
+        // Find supplier by email
+        const supplier = await Supplier.findOne({ email });
+        if (!supplier) {
+            return res.status(404).json({ message: "Supplier not found" });
+        }
+
+        // Prepare email content
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: supplier.email,
+            subject: `Purchase Request for ${item}`,
+            html: `
+                <h2>Purchase Request</h2>
+                <p>Dear ${supplier.firstName} ${supplier.lastName},</p>
+                <p>We would like to place a purchase request for the following item:</p>
+                <ul>
+                    <li><strong>Item:</strong> ${item}</li>
+                    <li><strong>Quantity:</strong> ${quantity}</li>
+                    <li><strong>Required Date:</strong> ${requiredDate}</li>
+                </ul>
+                <p>Please confirm the availability and provide a quotation at your earliest convenience.</p>
+                <p>Thank you,<br>Micro CCTV Security Solution</p>
+            `,
+        };
+
+        // Send email
+        await transporter.sendMail(mailOptions);
+        res.json({ message: "Purchase request email sent successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Failed to send purchase request", error });
+    }
 }
