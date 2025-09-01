@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import { FaVideo, FaShieldAlt, FaBell, FaClock, FaCog, FaTools, FaEnvelope, FaPhone, FaLaptop } from "react-icons/fa";
+import { TbDeviceCctvFilled } from "react-icons/tb";
+import { HiMiniWrenchScrewdriver } from "react-icons/hi2";
+import { FaSearch } from "react-icons/fa";
+
+
+
 
 export default function HomePage() {
   return (
@@ -38,7 +44,8 @@ export default function HomePage() {
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <p className="text-sm tracking-widest text-red-600 font-semibold">ABOUT US</p>
+            <div className="absolute left-[275px] top-[745px] text-red-600"><TbDeviceCctvFilled/></div>
+            <p className="text-sm tracking-widest text-red-600 font-semibold absolute">ABOUT US</p>
             <div>
               <p className="text-sm tracking-widest md:text-4xl text-red-600 font-extrabold absolute top-195 ">Protecting homes,</p>
             </div>
@@ -90,8 +97,9 @@ export default function HomePage() {
       <section className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-2 mb-8">
-            <div className="w-5 h-5 rounded-full bg-red-500" />
-            <h3 className="text-xl font-bold tracking-wide absolute left-175">SERVICES</h3>
+            <div className="text-red-600 absolute left-[750px]"><HiMiniWrenchScrewdriver /></div>
+
+            <h3 className="text-xl font-bold tracking-wide absolute left-195">SERVICES</h3>
           </div>
 
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -109,6 +117,7 @@ export default function HomePage() {
             <span className="text-red-500 text-xl">
               <i className="fas fa-user-check"></i>
             </span>
+            <div className="text-red-600"><FaSearch /></div>
             <h3 className="text-xl font-bold tracking-wide text-gray-800">
               WHY CHOOSE US
             </h3>
@@ -147,7 +156,7 @@ export default function HomePage() {
       </section>
 
       <div>
-            <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[2359px] -translate-y-20 right-10" />
+            <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[2342px] -translate-y-20 right-10" />
           </div>
 
       {/* CONTACT CTA */}

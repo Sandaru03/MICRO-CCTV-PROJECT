@@ -343,10 +343,7 @@ export default function TechnicianRepairPage() {
             </div>
           )}
 
-          <p className="text-xs text-gray-500 mt-4">
-            Tip: Customer side page එකකට serial number එකෙන් status check කරන්න නම්
-            මෙහි search input analogy එක use කරන්න පුලුවන්.
-          </p>
+        
         </div>
       </div>
 

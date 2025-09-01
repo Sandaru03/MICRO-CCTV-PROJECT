@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 import { MdDashboard } from "react-icons/md";
 import { MdSettingsAccessibility } from "react-icons/md";
 
-
 // Pages
 import ProductAdminPage from "./admin/productAdminPage";
 import AddProductPage from "./admin/addProductAdminPage";
@@ -127,6 +126,10 @@ export default function AdminPage() {
     navigate("/login");
   };
 
+  const handleGoToShop = () => {
+    navigate("/"); // change to '/shop' or your storefront route if needed
+  };
+
   return (
     <div className="min-h-screen w-full bg-slate-950">
       {/* Topbar */}
@@ -144,6 +147,15 @@ export default function AdminPage() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* New Shop button */}
+            <button
+              onClick={handleGoToShop}
+              className="rounded-xl border border-white/10 bg-slate-800/60 hover:bg-slate-800 px-3 py-1.5 text-sm font-semibold shadow flex items-center gap-2"
+            >
+              <HiShoppingBag className="text-base" />
+              Home
+            </button>
+
             <button
               onClick={handleLogout}
               className="rounded-xl bg-red-600/90 hover:bg-red-600 px-3 py-1.5 text-sm font-semibold shadow"
@@ -160,7 +172,7 @@ export default function AdminPage() {
           className={[
             "md:sticky md:top-20 md:h-[calc(100vh-6rem)] md:block",
             sidebarOpen ? "block" : "hidden",
-            "md:block md:-ml-2"
+            "md:block md:-ml-2",
           ].join(" ")}
         >
           <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-slate-900/90 to-slate-900/60 p-3 shadow-xl text-slate-100">
@@ -178,10 +190,20 @@ export default function AdminPage() {
               <SidebarLink to="/admin" icon={MdDashboard} label="Dashboard" onClick={() => setSidebarOpen(false)} />
               <SidebarLink to="/admin/add-admin" icon={RiAdminFill} label="Admin" onClick={() => setSidebarOpen(false)} />
               <SidebarLink to="/admin/employee" icon={IoPeople} label="Employee" onClick={() => setSidebarOpen(false)} />
-              <SidebarLink to="/admin/supplier" icon={IoPeopleCircleOutline} label="Supplier" onClick={() => setSidebarOpen(false)} />
+              <SidebarLink
+                to="/admin/supplier"
+                icon={IoPeopleCircleOutline}
+                label="Supplier"
+                onClick={() => setSidebarOpen(false)}
+              />
               <SidebarLink to="/admin/product" icon={HiShoppingBag} label="Product" onClick={() => setSidebarOpen(false)} />
               <SidebarLink to="/admin/order" icon={FaBoxArchive} label="Order" onClick={() => setSidebarOpen(false)} />
-              <SidebarLink to="/admin/technicians" icon={MdSettingsAccessibility} label="Technician" onClick={() => setSidebarOpen(false)} />
+              <SidebarLink
+                to="/admin/technicians"
+                icon={MdSettingsAccessibility}
+                label="Technician"
+                onClick={() => setSidebarOpen(false)}
+              />
             </nav>
           </div>
         </aside>
@@ -202,9 +224,9 @@ export default function AdminPage() {
             <Route path="supplier" element={<SupplierAdminPage />} />
             <Route path="newsupplier" element={<AddSupplier />} />
             <Route path="updatesupplier" element={<UpdateSupplierAdminPage />} />
-            <Route path="technicians" element={<TechnicianAdminPage/>} />
-            <Route path="newtechnician" element={<AddTechnicianAdminPage/>} />
-            <Route path="updatetechnician" element={<UpdateTechnicianAdminPage/>} />
+            <Route path="technicians" element={<TechnicianAdminPage />} />
+            <Route path="newtechnician" element={<AddTechnicianAdminPage />} />
+            <Route path="updatetechnician" element={<UpdateTechnicianAdminPage />} />
           </Routes>
         </main>
       </div>

@@ -151,11 +151,9 @@ export default function UpdateProductPage() {
           <div className="flex-1 flex flex-col gap-1">
             <label className="text-sm font-semibold">Category</label>
             <select value={category} onChange={(e)=>setCategory(e.target.value)} className="w-full border-[2px] h-[40px] rounded-md px-2">
-              <option value="cctv1">cctv1</option>
-              <option value="cctv2">cctv2</option>
-              <option value="cctv3">cctv3</option>
-              <option value="cctv4">cctv4</option>
-              <option value="cctv5">cctv5</option>
+                 <option value="cctv1">CCTV Camera</option>
+              <option value="cctv2">Accessories</option>
+              <option value="cctv3">Package</option>
             </select>
           </div>
         </div>
