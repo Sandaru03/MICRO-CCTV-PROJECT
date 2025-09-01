@@ -183,7 +183,7 @@ export default function TechnicianLogin() {
                 to="/technician/forgot-password"
                 className="text-sm text-gray-900 hover:underline"
               >
-                Forgot password?
+            
               </Link>
             </div>
 
@@ -191,7 +191,7 @@ export default function TechnicianLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-11 rounded-xl bg-gray-900 text-white font-semibold hover:bg-black transition disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full h-11 rounded-xl bg-gray-900 text-white font-semibold hover:bg-black transition disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>
@@ -199,8 +199,7 @@ export default function TechnicianLogin() {
 
           {/* Helper */}
           <div className="mt-6 text-xs text-gray-500">
-            Default password (if not changed):{" "}
-            <span className="font-medium">tech123</span>
+         
           </div>
         </div>
       </div>
