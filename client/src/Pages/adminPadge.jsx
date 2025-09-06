@@ -127,7 +127,7 @@ export default function AdminPage() {
   };
 
   const handleGoToShop = () => {
-    navigate("/"); // change to '/shop' or your storefront route if needed
+    navigate("/"); 
   };
 
   return (

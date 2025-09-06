@@ -63,7 +63,7 @@ export default function TechnicianRepairPage() {
     e.preventDefault();
 
     if (!deviceName.trim() || !serialNo.trim() || !progress.trim() || !estimatedDate) {
-      toast.error("අත්‍යවශ්‍ය සියල්ල පුරවන්න");
+      toast.error("Please fill all");
       return;
     }
 
@@ -72,7 +72,7 @@ export default function TechnicianRepairPage() {
       serialNo: serialNo.trim(),
       progress: progress.trim(),
       notes: notes.trim(),
-      estimatedDate, // yyyy-mm-dd (schema expects String)
+      estimatedDate, 
     };
 
     try {
@@ -132,7 +132,7 @@ export default function TechnicianRepairPage() {
       return;
     }
     if (!eDeviceName.trim() || !eSerialNo.trim() || !eProgress.trim() || !eEstimatedDate) {
-      toast.error("අත්‍යවශ්‍ය සියල්ල පුරවන්න");
+      toast.error("Please fill all");
       return;
     }
 
@@ -183,7 +183,7 @@ export default function TechnicianRepairPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header / breadcrumb */}
+      {/* Header */}
       <div className="max-w-6xl mx-auto px-4 py-6">
         <h1 className="text-2xl sm:text-3xl font-bold">Technician Repairs</h1>
         <p className="text-gray-600 mt-1">
@@ -347,7 +347,7 @@ export default function TechnicianRepairPage() {
         </div>
       </div>
 
-      {/* ===== Edit Modal ===== */}
+      {/* Edit Modal  */}
       {editOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div

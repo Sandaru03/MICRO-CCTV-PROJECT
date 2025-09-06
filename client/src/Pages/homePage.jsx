@@ -4,28 +4,43 @@ import { TbDeviceCctvFilled } from "react-icons/tb";
 import { HiMiniWrenchScrewdriver } from "react-icons/hi2";
 import { FaSearch } from "react-icons/fa";
 
-
-
-
 export default function HomePage() {
   return (
     <div className="w-full min-h-screen bg-neutral-50 text-neutral-900">
 
       {/* HERO */}
       <section className="relative w-full min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden bg-black pt-[90px]">
+        {/* Background image */}
         <img
           src="/Hero.jpg"
           alt="Control room"
           className="absolute inset-0 w-full h-full object-cover opacity-60"
         />
 
+        {/* Decorative hero right image (desktop only) */}
         <img
           src="/ne.png"
           alt="CCTV cameras"
           className="pointer-events-none absolute right-0 top-40 w-[520px] max-w-[85%] hidden md:block"
         />
 
-        <div className="z-10 max-w-6xl mx-auto px-6 py-16 absolute top-[130px] right-170">
+        {/* === Mobile content (keeps desktop unchanged) === */}
+        <div className="z-10 mx-auto px-6 py-16 text-center md:hidden">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight drop-shadow">
+            <span className="block text-6xl">MICRO</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500">CCTV</span>
+          </h1>
+          <p className="mt-3 text-xl font-semibold text-white">SECURITY SOLUTION</p>
+
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+            <FeatureBadge icon={<FaVideo className="w-5 h-5" />} title="Premium Indoor" desc="Cameras" />
+            <FeatureBadge icon={<FaShieldAlt className="w-5 h-5" />} title="Amazing Security" desc="Systems" />
+            <FeatureBadge icon={<FaClock className="w-5 h-5" />} title="24/7 Quick Alarms" desc="Response" />
+          </div>
+        </div>
+
+        {/* === Desktop original content (unchanged layout) === */}
+        <div className="hidden md:block z-10 max-w-6xl mx-auto px-6 py-16 absolute top-[130px] right-170">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight drop-shadow">
             <span className="block text-[80px]">MICRO</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500">CCTV</span>
@@ -43,11 +58,36 @@ export default function HomePage() {
       {/* ABOUT */}
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <div className="absolute left-[275px] top-[745px] text-red-600"><TbDeviceCctvFilled/></div>
+          {/* === Mobile-friendly ABOUT text === */}
+          <div className="md:hidden">
+            <div className="flex items-center gap-2 text-red-600 font-semibold">
+              <TbDeviceCctvFilled />
+              <p className="text-xs tracking-widest">ABOUT US</p>
+            </div>
+
+            <h2 className="mt-3 text-3xl font-extrabold leading-tight">
+              Protecting homes, <br /> businesses and peace
+            </h2>
+
+            <p className="mt-5 text-sm font-semibold leading-relaxed text-neutral-700">
+              We specialize in providing top-quality security and CCTV solutions to safeguard your home and business.
+              Our mission is to ensure peace of mind with reliable, innovative, and tailored protection systems.
+            </p>
+
+            <Link
+              to="/about"
+              className="inline-block mt-6 bg-red-600 hover:bg-red-700 text-white rounded-full px-5 py-2 text-sm"
+            >
+              ABOUT MORE
+            </Link>
+          </div>
+
+          {/* === Desktop original ABOUT text (unchanged) === */}
+          <div className="hidden md:block relative">
+            <div className="absolute left-[275px] top-[0px] text-red-600"><TbDeviceCctvFilled/></div>
             <p className="text-sm tracking-widest text-red-600 font-semibold absolute">ABOUT US</p>
             <div>
-              <p className="text-sm tracking-widest md:text-4xl text-red-600 font-extrabold absolute top-195 ">Protecting homes,</p>
+              <p className="text-sm tracking-widest md:text-4xl text-red-600 font-extrabold absolute top-[50px]">Protecting homes,</p>
             </div>
             <div>
               <h2 className="mt-2 text-3xl md:text-4xl font-extrabold leading-tight relative left-40 top-5 ">
@@ -60,7 +100,7 @@ export default function HomePage() {
               </h2>
             </div>
 
-            <p className="mt-5 text-sm font-semibold leading-relaxed text-neutral-700 max-w-[520px]">
+            <p className="mt-28 text-sm font-semibold leading-relaxed text-neutral-700 max-w-[520px]">
               We specialize in providing top-quality security and CCTV solutions to safeguard your home and business.
               Our mission is to ensure peace of mind with reliable, innovative, and tailored protection systems.
             </p>
@@ -72,13 +112,22 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="relative w-full h-[420px]">
+          {/* Images */}
+          {/* Mobile-friendly images */}
+          <div className="md:hidden">
+            <div className="grid grid-cols-2 gap-4">
+              <img src="/Ph1.jpg" alt="Tech installing camera" className="w-full h-40 object-cover rounded-xl shadow-lg" />
+              <img src="/Ph2.jpg" alt="Monitoring" className="w-full h-40 object-cover rounded-xl shadow-lg" />
+            </div>
+          </div>
+
+          {/* Desktop original image layout (unchanged) */}
+          <div className="hidden md:block relative w-full h-[420px]">
             <img
               src="/Ph1.jpg"
               alt="Tech installing camera"
               className="absolute top-0 left-50 w-72 h-70 object-cover rounded-xl shadow-lg"
             />
-
             <img
               src="/Ph2.jpg"
               alt="Monitoring"
@@ -87,6 +136,7 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Experience line */}
         <div className="mt-10 flex items-center gap-3 text-sm font-semibold">
           <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-100 text-red-600">10+</span>
           <span>We Have More Than 10+ Years of CCTV Services Experience</span>
@@ -96,9 +146,17 @@ export default function HomePage() {
       {/* SERVICES */}
       <section className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center gap-2 mb-8">
-            <div className="text-red-600 absolute left-[750px]"><HiMiniWrenchScrewdriver /></div>
+          {/* Mobile-friendly heading */}
+          <div className="mb-8 md:hidden">
+            <div className="flex items-center gap-2">
+              <HiMiniWrenchScrewdriver className="text-red-600" />
+              <h3 className="text-xl font-bold tracking-wide">SERVICES</h3>
+            </div>
+          </div>
 
+          {/* Desktop original heading (unchanged) */}
+          <div className="hidden md:flex items-center gap-2 mb-8">
+            <div className="text-red-600 absolute left-[750px]"><HiMiniWrenchScrewdriver /></div>
             <h3 className="text-xl font-bold tracking-wide absolute left-195">SERVICES</h3>
           </div>
 
@@ -111,8 +169,8 @@ export default function HomePage() {
       </section>
 
       {/* WHY CHOOSE US */}
-      <section className="py-16 h-[750px]">
-        <div className="max-w-6xl mx-auto px-6" >
+      <section className="py-16 md:h-[750px]">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-center mb-10 gap-2">
             <span className="text-red-500 text-xl">
               <i className="fas fa-user-check"></i>
@@ -155,9 +213,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div>
-            <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[2342px] -translate-y-20 right-10" />
-          </div>
+      {/* Decorative technician image (desktop only; unchanged) */}
+      <div className="hidden md:block">
+        <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[2342px] -translate-y-20 right-10" />
+      </div>
 
       {/* CONTACT CTA */}
       <section className="relative bg-red-600 text-white overflow-hidden">
@@ -178,13 +237,12 @@ export default function HomePage() {
               </a>
             </div>
           </div>
-          
+        </div>
 
-        </div>  
-        <div>
-            <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[-70px] -translate-y-20 right-10 " />
-          </div>
-        
+        {/* Contact section image (desktop only; unchanged) */}
+        <div className="hidden md:block">
+          <img src="/Ph6.png" alt="Technician" className="md:justify-self-end w-[360px] md:w-[420px] lg:w-[460px] absolute top-[-70px] -translate-y-20 right-10 " />
+        </div>
       </section>
 
       {/* FOOTER */}
