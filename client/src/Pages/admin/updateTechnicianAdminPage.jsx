@@ -10,11 +10,11 @@ export default function UpdateTechnicianAdminPage() {
 
   const [firstName, setFirstName]   = useState(tech.firstName || "");
   const [lastName,  setLastName]    = useState(tech.lastName || "");
-  const [email]                     = useState(tech.email || ""); // disabled field
+  const [email]                     = useState(tech.email || ""); 
   const [phone, setPhone]           = useState(tech.phone || "Not Given");
   const [salary, setSalary]         = useState(tech.salary || "");
   const [speciality, setSpeciality] = useState(tech.speciality || "");
-  const [newPassword, setNewPassword] = useState(""); // optional
+  const [newPassword, setNewPassword] = useState(""); 
 
   async function handleSubmit() {
     if (!firstName || !lastName || !email || !salary) {

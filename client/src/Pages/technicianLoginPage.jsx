@@ -20,7 +20,7 @@ export default function TechnicianLogin() {
     e.preventDefault();
 
     if (!email.trim() || !password) {
-      toast.error("Email සහ Password දෙකම අත්‍යවශ්‍යයි");
+      toast.error("Email and Password are required");
       return;
     }
 
@@ -52,7 +52,7 @@ export default function TechnicianLogin() {
       }
 
       toast.success("Welcome back 👋");
-      // ⬇️ Redirect to Technician Repair Page
+      // ⬇ Redirect to Technician Repair Page
       navigate("/technician/repairs");
     } catch (err) {
       console.error(err);
@@ -66,7 +66,7 @@ export default function TechnicianLogin() {
     }
   }
 
-  // preload remembered email
+  // preload  email
   useEffect(() => {
     const last = localStorage.getItem("techLastEmail");
     if (last) setEmail(last);
@@ -75,7 +75,7 @@ export default function TechnicianLogin() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-5xl grid md:grid-cols-2 gap-8 items-stretch">
-        {/* Left: Brand / Visual */}
+        {/* Left: Brand  */}
         <div className="hidden md:flex relative rounded-3xl overflow-hidden shadow-xl">
           <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-800 to-gray-900" />
           <div

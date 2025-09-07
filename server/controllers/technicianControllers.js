@@ -3,24 +3,15 @@ import bcrypt from "bcrypt";
 import Technician from "../models/technician.js";
 import { isAdmin } from "./userControllers.js";
 
-/**
- * ✅ DEV-ONLY Technician Login (no JWT)
- * POST /technicians/login
- * body: { email, password }
- * resp: { token: "dev-tech-token", technician }
- *
- * NOTE:
- * - PRODUCTION එකට මේක හරි නෑ. මෙක local/dev usage පමණයි.
- * - Frontend needs a "token", so we return a static one.
- */
+
 export async function loginTechnician(req, res) {
   try {
     const { email, password } = req.body || {};
     if (!email || !password) {
-      return res.status(400).json({ message: "Email සහ Password දෙකම අත්‍යවශ්‍යයි" });
+      return res.status(400).json({ message: "Email and Password Are required" });
     }
 
-    // If your schema uses select:false for password, keep +password.
+    
     const tech = await Technician.findOne({ email }).select("+password");
     if (!tech) {
       return res.status(401).json({ message: "Invalid email or password" });
@@ -45,11 +36,7 @@ export async function loginTechnician(req, res) {
   }
 }
 
-/**
- * Create Technician (Admin Only)
- * POST /technicians
- * If no password given, defaults to "tech123".
- */
+
 export async function createTechnician(req, res) {
   try {
     if (!isAdmin(req)) {
@@ -97,10 +84,7 @@ export async function createTechnician(req, res) {
   }
 }
 
-/**
- * Get All Technicians (Admin Only)
- * GET /technicians
- */
+
 export async function getTechnicians(req, res) {
   try {
     if (!isAdmin(req)) {
@@ -114,10 +98,7 @@ export async function getTechnicians(req, res) {
   }
 }
 
-/**
- * Update Technician by Email (Admin Only)
- * PUT /technicians/:email
- */
+
 export async function updateTechnicianByEmail(req, res) {
   try {
     if (!isAdmin(req)) {
@@ -151,10 +132,8 @@ export async function updateTechnicianByEmail(req, res) {
   }
 }
 
-/**
- * Delete Technician by Email (Admin Only)
- * DELETE /technicians/:email
- */
+// (Admin Only)
+
 export async function deleteTechnicianByEmail(req, res) {
   try {
     if (!isAdmin(req)) {
