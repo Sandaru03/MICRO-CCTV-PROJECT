@@ -1,4 +1,3 @@
-// routes/technicianRouter.js
 import express from "express";
 import {
   loginTechnician,
