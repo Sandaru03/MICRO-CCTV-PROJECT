@@ -140,7 +140,7 @@ export default function RepairStatusPage() {
             <button
               onClick={() => fetchBySerial(serialInput)}
               disabled={loading}
-              className="h-12 px-6 rounded-xl font-semibold text-white bg-gradient-to-r from-red-600 to-gray-800 shadow hover:opacity-95 disabled:opacity-60"
+              className="cursor-pointer h-12 px-6 rounded-xl font-semibold text-white bg-gradient-to-r from-red-600 to-gray-800 shadow hover:opacity-95 disabled:opacity-60"
             >
               {loading ? "Searching…" : "Search"}
             </button>
