@@ -20,7 +20,21 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://www.microcctvsecuritysolutions.store", // frontend domain
+      "http://localhost:5173" // (optional) local dev frontend if you test locally
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+// handle preflight (OPTIONS) requests
+app.options("*", cors());
+
 app.use(bodyParser.json());
 
 const connectionString = process.env.MONGO_URL;
